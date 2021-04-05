@@ -1,5 +1,6 @@
 # NotesAndTasks
 
 + Take notes with Markdown options
-+ Set task with reminders
++ Set tasks and subtasks
++ Set reminders to tasks
 + Create categories
