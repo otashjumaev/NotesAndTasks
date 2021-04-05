@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="org.hiro.noteapp.viewmodel.NoteViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.NoteFragment">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="fill">
+
+                <ImageView
+                    android:id="@+id/buttonBackArrow"
+                    style="@style/BackArrowPrimary" />
+
+                <TextView
+                    android:id="@+id/title"
+                    style="@style/Text.Black"
+                    android:layout_width="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/app_name"
+                    android:textSize="22sp" />
+
+                <ImageView
+                    android:id="@+id/saveBtn"
+                    style="@style/BackArrowPrimary"
+                    android:src="@drawable/ic_baseline_check_24" />
+
+                <ImageView
+                    android:id="@+id/colorPickerBtn"
+                    style="@style/BackArrowPrimary"
+                    android:src="@drawable/ic_baseline_color_lens_24" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.cardview.widget.CardView>
+
+        <EditText
+            android:id="@+id/editTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@android:color/transparent"
+            android:hint="@string/title_hint"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:text="@{viewModel.note.title}"
+            android:textColor="@{viewModel.titleColor}"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/editNote"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appbar" />
+
+
+        <EditText
+            android:id="@+id/editNote"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:background="@android:color/transparent"
+            android:gravity="top"
+            android:hint="@string/take_notes_here_hint"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:text="@{viewModel.noteTextFromHtml()}"
+            android:typeface="monospace"
+            app:layout_constraintBottom_toTopOf="@id/categoryChipsCont"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editTitle" />
+
+        <HorizontalScrollView
+            android:id="@+id/categoryChipsCont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/toolbarEdit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editNote">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/categoryChips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:singleLine="true"
+                app:singleSelection="true">
+
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/toolbarEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/teal_400"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/categoryChipsCont">
+
+
+            <ImageButton
+                android:id="@+id/action_bold"
+                onClick="@{viewModel}"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_baseline_format_bold_24" />
+
+            <ImageButton
+                android:id="@+id/action_italic"
+                onClick="@{viewModel}"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_baseline_format_italic_24" />
+
+            <ImageButton
+                android:id="@+id/action_strikethrough"
+                onClick="@{viewModel}"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_baseline_strikethrough_s_24" />
+
+            <ImageButton
+                android:id="@+id/action_underline"
+                onClick="@{viewModel}"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_baseline_format_underlined_24" />
+
+
+            <ImageButton
+                android:id="@+id/action_txt_color"
+                onClick="@{viewModel}"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_baseline_brush_24" />
+
+            <ImageButton
+                android:id="@+id/action_bg_color"
+                onClick="@{viewModel}"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_baseline_color_lens_24" />
+
+            <ImageButton
+                android:id="@+id/action_insert_image"
+                onClick="@{viewModel}"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@null"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_baseline_image_24" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

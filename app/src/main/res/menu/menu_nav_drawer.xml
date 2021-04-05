@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/noteFragment"
+        android:icon="@drawable/ic_round_notes_24"
+        android:title="Add note" />
+    <item
+        android:id="@+id/taskFragment"
+        android:icon="@drawable/ic_round_check_circle_24"
+        android:title="Add task" />
+    <item
+        android:id="@+id/noteListFragment"
+        android:icon="@drawable/ic_round_menu_book_24"
+        android:title="All notes and tasks" />
+</menu>

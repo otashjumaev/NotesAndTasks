@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.TaskFragment">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="fill">
+
+                <ImageView
+                    android:id="@+id/buttonBackArrow"
+                    style="@style/BackArrowPrimary" />
+
+                <TextView
+                    android:id="@+id/title"
+                    style="@style/Text.Black"
+                    android:layout_width="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/app_name"
+                    android:textSize="22sp" />
+
+                <ImageView
+                    android:id="@+id/saveBtn"
+                    style="@style/BackArrowPrimary"
+                    android:src="@drawable/ic_baseline_check_24" />
+
+                <ImageView
+                    android:id="@+id/colorPickerBtn"
+                    style="@style/BackArrowPrimary"
+                    android:src="@drawable/ic_baseline_color_lens_24" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/doneCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:button="@drawable/checkbox_selector"
+            app:layout_constraintBottom_toBottomOf="@id/editTaskDesc"
+            app:layout_constraintEnd_toStartOf="@id/subTaskList"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/editTaskDesc" />
+
+        <EditText
+            android:id="@+id/editTaskDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@android:color/transparent"
+            android:hint="@string/task_description_here"
+            android:importantForAutofill="no"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/subTaskList"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/doneCheck"
+            app:layout_constraintTop_toBottomOf="@id/appbar" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_round_notes_24"
+            android:tint="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/subTaskList"
+            app:layout_constraintEnd_toStartOf="@id/subTaskList"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/subTaskList"
+            app:layout_constraintVertical_bias="0" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/subTaskList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/categoryChipsCont"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/icon"
+            app:layout_constraintTop_toBottomOf="@id/editTaskDesc"
+            tools:itemCount="15"
+            tools:listitem="@layout/list_item_subtask">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <HorizontalScrollView
+            android:id="@+id/categoryChipsCont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/btnSetReminder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/subTaskList">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/categoryChips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:singleLine="true"
+                app:singleSelection="true">
+
+
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSetReminder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?android:selectableItemBackground"
+            android:drawableStart="@drawable/ic_round_access_alarm_24"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/black"
+            android:gravity="fill"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:text="set reminder"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/categoryChipsCont" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/reminderChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:text="@string/app_name"
+            android:visibility="visible"
+            app:chipIcon="@drawable/ic_round_access_alarm_24"
+            app:chipIconTint="@color/black"
+            app:closeIconEnabled="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/categoryChipsCont" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

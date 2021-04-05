@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:id="@+id/taskItemLayout"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:background="@drawable/item_bg"
+        android:descendantFocusability="blocksDescendants"
+        android:padding="10dp">
+
+
+        <TextView
+            android:id="@+id/taskDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintVertical_chainStyle="spread_inside"
+            android:typeface="serif"
+            android:maxLines="4"
+            app:layout_constraintBottom_toTopOf="@id/taskRedmindTime"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/progressTask"
+            tools:text="Note titleqsm kjajdabkdbshjbcshkahsjcbhscbsjhdcjbsjdchas" />
+
+        <TextView
+            android:id="@+id/subTaskCount"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:typeface="monospace"
+            app:layout_constraintTop_toTopOf="@id/progressTask"
+            app:layout_constraintBottom_toBottomOf="@id/progressTask"
+            app:layout_constraintEnd_toEndOf="@id/progressTask"
+            app:layout_constraintStart_toStartOf="@id/progressTask"
+            tools:text="8/10" />
+
+        <ProgressBar
+            android:id="@+id/progressTask"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:indeterminate="false"
+            app:layout_constraintBottom_toTopOf="@id/noteTime"
+            android:progressDrawable="@drawable/circular_progress_bar"
+            app:layout_constraintTop_toTopOf="@id/taskDesc"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/taskRedmindTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawablePadding="5dp"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:textStyle="italic"
+            app:layout_constraintTop_toBottomOf="@id/taskDesc"
+            app:drawableStartCompat="@drawable/ic_round_alarm"
+            app:layout_constraintEnd_toStartOf="@id/progressTask"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Nov 3, 09:00" />
+
+        <TextView
+            android:id="@+id/noteTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:textStyle="italic"
+            android:typeface="serif"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="10.10.20" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

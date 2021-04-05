@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation.xml"
+    app:startDestination="@id/noteListFragment">
+
+    <fragment
+        android:id="@+id/noteListFragment"
+        android:name="org.hiro.noteapp.ui.HomeFragment"
+        android:label="Take Note"
+        tools:layout="@layout/fragment_note_list">
+        <action
+            android:id="@+id/action_noteListFragment_to_noteFragment"
+            app:destination="@id/noteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/noteFragment"
+        android:name="org.hiro.noteapp.ui.NoteFragment"
+        tools:layout="@layout/fragment_note">
+        <argument
+            android:name="key"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/taskFragment"
+        android:name="org.hiro.noteapp.ui.TaskFragment"
+        android:label="TaskFragment"
+        tools:layout="@layout/fragment_task" >
+        <argument
+            android:name="key"
+            app:argType="long"
+            android:defaultValue="-1L" />
+    </fragment>
+</navigation>

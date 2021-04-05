@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="note"
+            type="org.hiro.noteapp.database.model.Note" />
+
+    </data>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/itemLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="3dp"
+        android:background="@drawable/item_bg"
+        android:backgroundTint="@{note.color}"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/noteTitle"
+            titleVisibility="@{note}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{note.title}"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:typeface="serif"
+            tools:text="Note title" />
+
+        <TextView
+            android:id="@+id/noteText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="4"
+            android:textColor="@color/white"
+            android:typeface="monospace"
+            tools:text="Note text" />
+
+        <TextView
+            android:id="@+id/noteTime"
+            formattedTimeText="@{note}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            android:typeface="serif"
+            tools:text="10.10.20" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/saveNote"
+        android:icon="@drawable/ic_baseline_check_24"
+        android:iconTint="#000"
+        android:title="Save"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/pickColor"
+        android:icon="@drawable/ic_baseline_color_lens_24"
+        android:iconTint="#000"
+        android:title="Pick Color"
+        app:showAsAction="always" />
+</menu>

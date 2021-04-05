@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Take Note</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_hint">Title</string>
+    <string name="take_notes_here_hint">Take notes here...</string>
+    <string name="add_sub_task">+ add sub task</string>
+    <string name="task_description_here">Task description here...</string>
+</resources>
