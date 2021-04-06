@@ -85,7 +85,6 @@ class TaskFragment : Fragment() {
         }
         binding.categoryChips.setOnCheckedChangeListener { group, checkedId ->
             viewModel.task.catId = checkedId.toLong()
-            Log.d("DBGCAT", "initCategChips: $checkedId")
         }
     }
     
@@ -121,18 +120,14 @@ class TaskFragment : Fragment() {
     
     private fun initAdapter() {
         adapter = SubTaskAdapter({ subTask ->
-            Log.d("DBG1", "onCreateView: $subTask")
             val index = viewModel.task.subTasks.size - 1
             viewModel.task.subTasks.add(index, SubTask(id = index.toLong(), desc = subTask))
             hideKeyboard(requireActivity())
-            Log.d("DBG1", "onCreateView: ${viewModel.task.subTasks.size}")
             adapter.submitList(viewModel.task.subTasks)
         }, {
-            Log.d("DBG11", "bfr:${viewModel.task.subTasks.size} ${viewModel.task.subTasks[it]}")
             viewModel.task.subTasks.removeAt(it)
             adapter.submitList(viewModel.task.subTasks)
             adapter.notifyItemRemoved(it)
-            Log.d("DBG11", "aft: ${viewModel.task.subTasks.size}")
         })
         adapter.submitList(viewModel.task.subTasks)
     }
@@ -151,7 +146,6 @@ class TaskFragment : Fragment() {
         
         viewModel.taskDone.observe(viewLifecycleOwner) {
             binding.editTaskDesc.text.apply {
-                Log.d("DBG", "taskdone: $this $it")
                 if (it) setSpan(StrikethroughSpan(), 0, length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
                 else {
                     getSpans(0, length, StrikethroughSpan::class.java).forEach {
@@ -195,7 +189,6 @@ class TaskFragment : Fragment() {
             .setColors(colors())
             .setColorListener { color, _ ->
                 it.resume(color)
-                Log.d("DBG", "showColorPicker: $color")
             }
             .show()
     }

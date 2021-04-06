@@ -13,20 +13,16 @@ import androidx.core.text.set
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import org.hiro.noteapp.util.BaseSpan
 import org.hiro.noteapp.R
 import org.hiro.noteapp.database.MyDatabase
 import org.hiro.noteapp.database.model.Note
-import org.hiro.noteapp.util.colors
-import org.hiro.noteapp.util.fromHtml
+import org.hiro.noteapp.util.*
 import java.util.*
 
 class NoteViewModel(val db: MyDatabase, key: Long) : ViewModel() {
     private val noteDB = db.noteDao
     val categories = db.categoryDao.getCategories()
-    
     val note: Note = noteDB.get(key) ?: Note()
-    
     
     private val _textEdit = MutableLiveData<BaseSpan?>()
     val textEdit: LiveData<BaseSpan?>
@@ -69,7 +65,6 @@ class NoteViewModel(val db: MyDatabase, key: Long) : ViewModel() {
             note.id = newItemId
             Log.d("DBGN", "newID: $newItemId")
         } else noteDB.update(note)
-        Log.d("DBGN", "saveNote after: $note")
         return true
     }
     
@@ -87,64 +82,59 @@ class NoteViewModel(val db: MyDatabase, key: Long) : ViewModel() {
         }
     
     
-    fun spanText(text: Editable, span: BaseSpan) {
+    fun setSpanText(text: Editable, span: BaseSpan) {
+        Log.d("DBGN", "BEFORE:|${toHtml(text)}|")
         with(span) {
-            var spanToRemove: Any?
             val spans = text.getSpans(start, end, getSpan(spanID).javaClass)
-            var spanStart: Int
-            var spanEnd: Int
-            Log.d("DBGN", "spanText: ${spans.size}")
-            
-            for (sp in spans) {
-                spanToRemove = sp
-                spanStart = text.getSpanStart(sp)
-                spanEnd = text.getSpanEnd(sp)
-                
-                Log.d("DBGN",
-                    "removeSpan START: [$start,$end] [$spanStart,$spanEnd] ${getSpan(spanID)::class.simpleName}")
-                
-                if (sp is StyleSpan)
-                    if (sp.style != (getSpan(spanID) as StyleSpan).style)
-                        spanToRemove = null
-                
-                if (!isApplied) {
-                    if (spanStart <= start && spanEnd <= end && spanToRemove != null) {
-                        Log.d("DBGN", "spanText: =====================================")
-                        return
-                    }
-                }
-                if (spanToRemove != null) {
+            var spanStart: Int = if (spans.isNotEmpty()) text.getSpanStart(spans[0]) else -1
+            var spanEnd: Int = if (spans.isNotEmpty()) text.getSpanEnd(spans[0]) else -1
+            var spanToRemove: Any?
+            if (isApplied)
+                for (sp in spans) {
+                    spanToRemove = sp
+                    spanStart = text.getSpanStart(sp)
+                    spanEnd = text.getSpanEnd(sp)
+                    
+                    if (sp is StyleSpan)
+                        if (sp.style != (getSpan(spanID) as StyleSpan).style)
+                            spanToRemove = null
+                    
                     text.removeSpan(spanToRemove)
-                    if (isApplied)
+                    if (spanToRemove != null)
                         when {
-                            (start >= spanStart && end <= spanEnd && start != end) -> {
+                            //12 16 -- 12 16
+                            (start > spanStart && end < spanEnd && start != end) -> {
                                 text[spanStart, start] = getSpan(spanID)
                                 text[end, spanEnd] = getSpan(spanID)
-                                Log.d("LOG",
-                                    "IN_INTERVAL Span indices: [$start $end] [$spanStart $spanEnd]")
+                            }
+                            //aaa bbb cc
+                            (start <= spanStart && end < spanEnd && start != end) -> {
+                                text[end, spanEnd] = getSpan(spanID)
                             }
                             
-                            (start <= spanStart && end < spanEnd && start != end) ->
-                                text[end, spanEnd] = getSpan(spanID)
-                            
-                            (start > spanStart && end >= spanEnd && start != end) ->
+                            (start > spanStart && end >= spanEnd && start != end) -> {
                                 text[spanStart, start] = getSpan(spanID)
+                            }
+                            (start == end) -> {
+                                text.setSpan(
+                                    getSpan(spanID),
+                                    spanStart,
+                                    spanEnd,
+                                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                                )
+                            }
                             
-                            (start == end) -> text.setSpan(
-                                getSpan(spanID),
-                                spanStart,
-                                spanEnd,
-                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                            )
                         }
                 }
-            }
-            if (!isApplied && spans.isEmpty())
+            else {
+//                if (spanStart <= start && spanEnd >= end && spanStart != -1)
+//                    return
                 text.setSpan(getSpan(spanID),
                     start,
                     end,
                     Spannable.SPAN_INCLUSIVE_INCLUSIVE)
-            
+            }
         }
+        Log.d("DBGN", "AFTER:|${toHtml(text)}|")
     }
 }

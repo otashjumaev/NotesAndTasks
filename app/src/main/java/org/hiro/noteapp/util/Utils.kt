@@ -22,16 +22,14 @@ fun hideKeyboard(activity: Activity) {
 
 fun toHtml(text: Spanned?): String =
     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
-        Html.toHtml(text, Html.TO_HTML_PARAGRAPH_LINES_CONSECUTIVE)
+        Html.toHtml(text, 0)
     else Html.toHtml(text)
 
 
 fun fromHtml(text: String): Spanned? =
-    if (text.isNotBlank())
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
-            Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY)
-        else Html.fromHtml(text)
-    else null
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
+        Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY)
+    else Html.fromHtml(text)
 
 @SuppressLint("SimpleDateFormat")
 fun formatTime(time: Long): String = SimpleDateFormat("MMM dd',' HH:mm").format(Date(time))

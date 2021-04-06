@@ -67,13 +67,10 @@ class NoteFragment : Fragment() {
     private fun initListeners() {
         binding.categoryChips.setOnCheckedChangeListener { group, checkedId ->
             viewModel.note.catId = checkedId.toLong()
-            Log.d("DBGCAT", "initCategChips: ${group.checkedChipId}")
         }
         binding.editNote.apply {
             doOnTextChanged { _, _, _, _ ->
-                Log.d("DBGN", "initListeners: ${toHtml(text)}")
                 viewModel.note.text = toHtml(text)
-                Log.d("TXT", "TEXT: \n${viewModel.note.text}\n${text}")
             }
         }
         binding.editTitle.doOnTextChanged { t, _, _, _ -> viewModel.note.title = t.toString() }
@@ -103,7 +100,7 @@ class NoteFragment : Fragment() {
                                 viewModel.textBgColor = showColorPicker()
                             else if (it.spanID == R.id.action_txt_color)
                                 viewModel.textColor = showColorPicker()
-                        viewModel.spanText(text, it)
+                        viewModel.setSpanText(text, it)
                         viewModel.textEditSelectDone()
                     }
                 }
@@ -113,8 +110,7 @@ class NoteFragment : Fragment() {
     
     
     private fun saveNote() {
-        binding.editNote.append("")
-        Log.d("DBGN", "TEXT: \n${viewModel.note.text}")
+        viewModel.note.text = toHtml(binding.editNote.text)
         val snackBarText = if (
             viewModel.saveNote()
         ) "Saved" else "Please add some note"
@@ -127,14 +123,11 @@ class NoteFragment : Fragment() {
             .setColors(colors())
             .setColorListener { color, _ ->
                 it.resume(color)
-                Log.d("DBG", "showColorPicker: $color")
             }
             .show()
     }
     
     override fun onStop() {
-        Log.d("DBGN",
-            "FG onDestroyView: \n${viewModel.note}")
         hideKeyboard(activity as MainActivity)
         super.onStop()
     }

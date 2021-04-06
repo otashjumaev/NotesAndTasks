@@ -3,6 +3,8 @@ package org.hiro.noteapp.ui
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.appcompat.widget.PopupMenu
+import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -11,8 +13,8 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.github.clans.fab.FloatingActionButton
-import org.hiro.noteapp.adapter.MainListAdapter
 import org.hiro.noteapp.R
+import org.hiro.noteapp.adapter.MainListAdapter
 import org.hiro.noteapp.database.MyDatabase
 import org.hiro.noteapp.database.model.Category
 import org.hiro.noteapp.database.model.Item
@@ -24,6 +26,7 @@ import org.hiro.noteapp.util.HawkUtils
 import org.hiro.noteapp.util.hideKeyboard
 import org.hiro.noteapp.viewmodel.HomeViewModel
 import org.hiro.noteapp.viewmodel.factory.MainViewModelFactory
+
 
 class HomeFragment : Fragment() {
     private val actNoteFr = HomeFragmentDirections.actionNoteListFragmentToNoteFragment()
@@ -99,17 +102,16 @@ class HomeFragment : Fragment() {
                 addCat(categ)
             }
         }
-        
         binding.navView.setNavigationItemSelectedListener {
             when (val id = it.itemId) {
                 R.id.taskFragment -> findNavController().navigate(id)
-                R.id.noteListFragment -> {
-                    if (viewModel.currentCategory != 0)
-                        findNavController().navigate(id)
-                }
                 R.id.noteFragment -> {
                     actNoteFr.setKey(-1)
                     findNavController().navigate(actNoteFr)
+                }
+                R.id.noteListFragment -> {
+                    if (viewModel.currentCategory != 0)
+                        findNavController().navigate(id)
                 }
                 else -> {
                     if (viewModel.currentCategory != id) {
