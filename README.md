@@ -6,7 +6,7 @@
 + Create categories
 
 SCREENSHOTS:
-<img src="https://github.com/otashjumaev/NotesAndTasks/blob/master/screenshots/0p.jpg" width="100" height="100">
+<img src="https://github.com/otashjumaev/NotesAndTasks/blob/master/screenshots/0p.jpg" width="50%" height="50%">
 ![](https://github.com/otashjumaev/NotesAndTasks/blob/master/screenshots/0p.jpg)
 ![](https://github.com/otashjumaev/NotesAndTasks/blob/master/screenshots/1p.jpg "Optional title")
 ![](https://github.com/otashjumaev/NotesAndTasks/blob/master/screenshots/2p.jpg "Optional title")
